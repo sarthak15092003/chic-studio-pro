@@ -41,17 +41,39 @@ export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [eventType, setEventType] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (!eventType) {
+      toast.error("Please select an event type");
+      setIsSubmitting(false);
+      return;
+    }
 
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    const formData = new FormData(e.currentTarget);
+    formData.append("event_type", eventType);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/eventkashish@gmail.com", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully! We'll get back to you soon.");
+        (e.target as HTMLFormElement).reset();
+        setEventType("");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -154,6 +176,10 @@ export const Contact = () => {
                 Send us a Message
               </h3>
 
+              <input type="hidden" name="_subject" value="New Contact Form Submission - Kashish Events" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
@@ -161,6 +187,7 @@ export const Contact = () => {
                   </label>
                   <Input
                     required
+                    name="name"
                     placeholder="Your name"
                     className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
@@ -170,6 +197,8 @@ export const Contact = () => {
                     Company
                   </label>
                   <Input
+                    required
+                    name="company"
                     placeholder="Company name"
                     className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
@@ -184,6 +213,7 @@ export const Contact = () => {
                   <Input
                     type="email"
                     required
+                    name="email"
                     placeholder="your@email.com"
                     className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
@@ -193,7 +223,9 @@ export const Contact = () => {
                     Phone
                   </label>
                   <Input
+                    required
                     type="tel"
+                    name="phone"
                     placeholder="+91 XXXXX XXXXX"
                     className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
@@ -204,7 +236,7 @@ export const Contact = () => {
                 <label className="block text-sm font-semibold text-foreground mb-2">
                   Event Type
                 </label>
-                <Select>
+                <Select value={eventType} onValueChange={setEventType}>
                   <SelectTrigger className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12">
                     <SelectValue placeholder="Select event type" />
                   </SelectTrigger>
@@ -223,6 +255,8 @@ export const Contact = () => {
                   Message
                 </label>
                 <Textarea
+                  required
+                  name="message"
                   placeholder="Tell us about your event..."
                   rows={4}
                   className="bg-secondary/50 border-border focus:border-accent rounded-xl resize-none"
