@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "../assets/logo.jpeg";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -50,11 +51,11 @@ export const Header = () => {
             className="flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="w-11 h-11 rounded-xl bg-gradient-accent flex items-center justify-center shadow-glow-pink">
-              <span className="text-primary-foreground font-display font-bold text-xl">
-                K
-              </span>
-            </div>
+            <img 
+              src={logo} 
+              alt="Kashish Events" 
+              className="h-12 w-auto object-contain rounded-lg"
+            />
             <span
               className={`font-display font-bold text-xl tracking-tight ${
                 isScrolled ? "text-foreground" : "text-primary-foreground"

@@ -18,6 +18,7 @@ const contactInfo = [
     icon: MapPin,
     title: "Our Office",
     lines: ["J-14, Kailash Colony, Greater Kailash,", "New Delhi – 110048"],
+    href: "https://maps.google.com/?q=J-14, Kailash Colony, Greater Kailash, New Delhi – 110048",
     color: "from-pink to-purple",
   },
   {
@@ -44,10 +45,10 @@ export const Contact = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    
+
     toast.success("Message sent successfully! We'll get back to you soon.");
     setIsSubmitting(false);
     (e.target as HTMLFormElement).reset();
@@ -60,7 +61,7 @@ export const Contact = () => {
         <div className="absolute top-20 right-20 w-72 h-72 bg-pink/5 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-20 w-72 h-72 bg-purple/5 rounded-full blur-3xl" />
       </div>
-      
+
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -107,6 +108,8 @@ export const Contact = () => {
                   {info.href ? (
                     <a
                       href={info.href}
+                      target={info.href.startsWith("http") ? "_blank" : undefined}
+                      rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="text-muted-foreground hover:text-accent transition-colors"
                     >
                       {info.lines.join(", ")}
@@ -121,7 +124,7 @@ export const Contact = () => {
                 </div>
               </motion.div>
             ))}
-            
+
             {/* Decorative */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -166,9 +169,9 @@ export const Contact = () => {
                   <label className="block text-sm font-semibold text-foreground mb-2">
                     Company
                   </label>
-                  <Input 
-                    placeholder="Company name" 
-                    className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12" 
+                  <Input
+                    placeholder="Company name"
+                    className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
                 </div>
               </div>
