@@ -13,11 +13,11 @@ export const Hero = () => {
 
   useEffect(() => {
     const targetDate = new Date("2025-11-22").getTime();
-    
+
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
-      
+
       setCountdown({
         days: Math.floor(distance / (1000 * 60 * 60 * 24)),
         hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -56,7 +56,7 @@ export const Hero = () => {
           animate={{ y: [0, -30, 0] }}
           transition={{ duration: 6, repeat: Infinity }}
         />
-        
+
         {/* Decorative icons */}
         <motion.div
           className="absolute top-32 right-32 text-yellow"
@@ -82,7 +82,7 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-20">
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-20 pb-32 lg:pb-40">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div>
@@ -160,7 +160,7 @@ export const Hero = () => {
                   Corporate Summit 2025
                 </h3>
               </div>
-              
+
               <div className="grid grid-cols-4 gap-4 mb-6">
                 {[
                   { value: countdown.days, label: "Days" },
@@ -203,7 +203,7 @@ export const Hero = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
         onClick={() => scrollToSection("#about")}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+        className="absolute bottom-28 left-1/2 -translate-x-1/2 text-primary-foreground/60 hover:text-primary-foreground transition-colors"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

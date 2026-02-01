@@ -42,7 +42,7 @@ export const Footer = () => {
         <div className="absolute top-20 right-20 w-64 h-64 bg-pink/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-20 w-64 h-64 bg-yellow/5 rounded-full blur-3xl" />
       </div>
-      
+
       <div className="container mx-auto px-6 lg:px-12 py-16 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -61,7 +61,7 @@ export const Footer = () => {
               India's trusted partner for high-impact corporate events, delivering
               seamless execution and unforgettable brand experiences since 2005.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -114,7 +114,7 @@ export const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-primary-foreground/10">
+      <div className="border-t border-primary-foreground/10 relative z-10">
         <div className="container mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-primary-foreground/50 text-sm">
             © {new Date().getFullYear()} Kashish Events. All rights reserved.
