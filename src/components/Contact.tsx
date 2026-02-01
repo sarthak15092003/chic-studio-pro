@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Send, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,18 +18,21 @@ const contactInfo = [
     icon: MapPin,
     title: "Our Office",
     lines: ["J-14, Kailash Colony, Greater Kailash,", "New Delhi – 110048"],
+    color: "from-pink to-purple",
   },
   {
     icon: Phone,
     title: "Phone",
     lines: ["+91 90153 84411"],
     href: "tel:+919015384411",
+    color: "from-purple to-blue",
   },
   {
     icon: Mail,
     title: "Email",
     lines: ["eventkashish@gmail.com"],
     href: "mailto:eventkashish@gmail.com",
+    color: "from-yellow to-pink",
   },
 ];
 
@@ -51,8 +54,14 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-secondary/30" ref={ref}>
-      <div className="container mx-auto px-6 lg:px-12">
+    <section id="contact" className="py-24 lg:py-32 bg-secondary/50 relative overflow-hidden" ref={ref}>
+      {/* Background decoration */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-pink/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-72 h-72 bg-purple/5 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -60,12 +69,13 @@ export const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-accent font-medium text-sm uppercase tracking-wider">
+          <span className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent font-bold text-sm uppercase tracking-wider mb-4">
             Get in Touch
           </span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-4 mb-6">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-4 mb-6">
             Let's Create Something
-            <span className="text-primary"> Extraordinary</span>
+            <br />
+            <span className="text-gradient-warm">Extraordinary</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Ready to discuss your next event? Our team is here to help you craft
@@ -79,15 +89,21 @@ export const Contact = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2 space-y-6"
           >
             {contactInfo.map((info, index) => (
-              <div key={info.title} className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <info.icon className="w-6 h-6 text-accent" />
+              <motion.div
+                key={info.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + 0.1 * index }}
+                className="flex gap-4 p-6 rounded-2xl bg-background border border-border hover:border-accent hover:shadow-lg transition-all duration-300 group"
+              >
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${info.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                  <info.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
+                  <h4 className="font-bold text-foreground mb-1">{info.title}</h4>
                   {info.href ? (
                     <a
                       href={info.href}
@@ -103,8 +119,21 @@ export const Contact = () => {
                     ))
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
+            
+            {/* Decorative */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="bg-gradient-hero rounded-3xl p-6 text-center"
+            >
+              <Sparkles className="w-8 h-8 text-yellow mx-auto mb-3" />
+              <p className="text-primary-foreground font-semibold">
+                Let's make your next event unforgettable!
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* Contact Form */}
@@ -116,61 +145,64 @@ export const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="bg-background rounded-2xl p-8 border border-border shadow-lg"
+              className="bg-background rounded-3xl p-8 lg:p-10 border border-border shadow-xl"
             >
-              <h3 className="font-display text-2xl font-semibold text-foreground mb-6">
+              <h3 className="font-display text-2xl font-bold text-foreground mb-8">
                 Send us a Message
               </h3>
 
-              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+              <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     Name
                   </label>
                   <Input
                     required
                     placeholder="Your name"
-                    className="bg-secondary/50"
+                    className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     Company
                   </label>
-                  <Input placeholder="Company name" className="bg-secondary/50" />
+                  <Input 
+                    placeholder="Company name" 
+                    className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12" 
+                  />
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+              <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     Email
                   </label>
                   <Input
                     type="email"
                     required
                     placeholder="your@email.com"
-                    className="bg-secondary/50"
+                    className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-semibold text-foreground mb-2">
                     Phone
                   </label>
                   <Input
                     type="tel"
                     placeholder="+91 XXXXX XXXXX"
-                    className="bg-secondary/50"
+                    className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12"
                   />
                 </div>
               </div>
 
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-foreground mb-2">
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   Event Type
                 </label>
                 <Select>
-                  <SelectTrigger className="bg-secondary/50">
+                  <SelectTrigger className="bg-secondary/50 border-border focus:border-accent rounded-xl h-12">
                     <SelectValue placeholder="Select event type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -183,21 +215,21 @@ export const Contact = () => {
                 </Select>
               </div>
 
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">
+              <div className="mb-8">
+                <label className="block text-sm font-semibold text-foreground mb-2">
                   Message
                 </label>
                 <Textarea
                   placeholder="Tell us about your event..."
                   rows={4}
-                  className="bg-secondary/50"
+                  className="bg-secondary/50 border-border focus:border-accent rounded-xl resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-6 text-lg font-medium group"
+                className="w-full bg-gradient-accent hover:opacity-90 text-accent-foreground py-6 text-lg font-bold group rounded-xl shadow-glow-pink"
               >
                 {isSubmitting ? (
                   "Sending..."

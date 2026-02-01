@@ -16,24 +16,28 @@ const highlights = [
     title: "Passionate Team",
     description:
       "A dedicated team of event professionals who bring enthusiasm and expertise to every project.",
+    color: "from-pink to-purple",
   },
   {
     icon: Home,
     title: "In-house Resources",
     description:
       "Extensive inventory and workforce enabling quick deployment and seamless execution.",
+    color: "from-purple to-blue",
   },
   {
     icon: Trophy,
     title: "Proven Excellence",
     description:
       "Consistent delivery of high-quality events across diverse formats and scales.",
+    color: "from-yellow to-pink",
   },
   {
     icon: Handshake,
     title: "Trusted Partnerships",
     description:
       "Long-standing relationships with India's leading corporate and consumer brands.",
+    color: "from-cyan to-purple",
   },
 ];
 
@@ -42,8 +46,14 @@ export const WhyUs = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-24 lg:py-32 bg-background" ref={ref}>
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="py-24 lg:py-32 bg-background relative overflow-hidden" ref={ref}>
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-20 right-20 w-72 h-72 bg-pink/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-72 h-72 bg-purple/5 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <motion.div
@@ -51,12 +61,12 @@ export const WhyUs = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-accent font-medium text-sm uppercase tracking-wider">
+            <span className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent font-bold text-sm uppercase tracking-wider mb-4">
               Why Kashish Events
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-4 mb-6">
               Your Trusted Partner for
-              <span className="text-primary"> Exceptional Events</span>
+              <span className="text-gradient-warm"> Exceptional Events</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
               With two decades of experience and an unwavering commitment to
@@ -72,12 +82,12 @@ export const WhyUs = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.1 * index }}
-                  className="flex items-center gap-3"
+                  className="flex items-center gap-4"
                 >
-                  <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-4 h-4 text-accent" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-accent flex items-center justify-center flex-shrink-0">
+                    <Check className="w-5 h-5 text-accent-foreground" />
                   </div>
-                  <span className="text-foreground font-medium">{feature}</span>
+                  <span className="text-foreground font-semibold">{feature}</span>
                 </motion.li>
               ))}
             </ul>
@@ -96,12 +106,12 @@ export const WhyUs = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 * index }}
-                className="bg-secondary/50 rounded-2xl p-6 border border-border hover:border-accent/30 hover:shadow-lg transition-all duration-300"
+                className="bg-secondary/50 rounded-3xl p-6 border border-border hover:border-accent hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <highlight.icon className="w-6 h-6 text-primary" />
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${highlight.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <highlight.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
-                <h4 className="font-display text-lg font-semibold text-foreground mb-2">
+                <h4 className="font-display text-lg font-bold text-foreground mb-2">
                   {highlight.title}
                 </h4>
                 <p className="text-muted-foreground text-sm leading-relaxed">
