@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -16,6 +16,13 @@ const footerLinks = {
   ],
 };
 
+const socialLinks = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Linkedin, href: "#", label: "LinkedIn" },
+];
+
 export const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -29,18 +36,24 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container mx-auto px-6 lg:px-12 py-16">
+    <footer className="bg-gradient-hero text-primary-foreground relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-pink/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-yellow/5 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="container mx-auto px-6 lg:px-12 py-16 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                <span className="text-accent-foreground font-display font-bold text-xl">
+              <div className="w-12 h-12 rounded-xl bg-gradient-warm flex items-center justify-center">
+                <span className="text-purple-deep font-display font-bold text-2xl">
                   K
                 </span>
               </div>
-              <span className="font-display font-semibold text-xl">
+              <span className="font-display font-bold text-2xl">
                 Kashish Events
               </span>
             </div>
@@ -48,20 +61,31 @@ export const Footer = () => {
               India's trusted partner for high-impact corporate events, delivering
               seamless execution and unforgettable brand experiences since 2005.
             </p>
-            <p className="text-primary-foreground/50 text-sm">
-              © {new Date().getFullYear()} Kashish Events. All rights reserved.
-            </p>
+            
+            {/* Social Links */}
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="w-10 h-10 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-all duration-300 group"
+                >
+                  <social.icon className="w-5 h-5 text-primary-foreground group-hover:text-accent-foreground" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Services</h4>
+            <h4 className="font-display font-bold text-lg mb-6">Services</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
+                    className="text-primary-foreground/70 hover:text-yellow transition-colors text-sm font-medium"
                   >
                     {link.label}
                   </button>
@@ -72,13 +96,13 @@ export const Footer = () => {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Company</h4>
+            <h4 className="font-display font-bold text-lg mb-6">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
+                    className="text-primary-foreground/70 hover:text-yellow transition-colors text-sm font-medium"
                   >
                     {link.label}
                   </button>
@@ -89,18 +113,21 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Back to Top */}
+      {/* Bottom Bar */}
       <div className="border-t border-primary-foreground/10">
-        <div className="container mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
+        <div className="container mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-primary-foreground/50 text-sm">
+            © {new Date().getFullYear()} Kashish Events. All rights reserved.
+          </p>
+          <p className="text-primary-foreground/70 text-sm font-semibold">
             Designing Experiences. Delivering Impact.
           </p>
           <motion.button
             onClick={scrollToTop}
             whileHover={{ y: -2 }}
-            className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors group"
+            className="w-12 h-12 rounded-xl bg-gradient-accent flex items-center justify-center shadow-glow-pink hover:scale-110 transition-transform"
           >
-            <ArrowUp className="w-5 h-5 text-primary-foreground group-hover:text-accent-foreground" />
+            <ArrowUp className="w-5 h-5 text-accent-foreground" />
           </motion.button>
         </div>
       </div>

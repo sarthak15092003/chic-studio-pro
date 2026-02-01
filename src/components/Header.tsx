@@ -38,7 +38,7 @@ export const Header = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
+          ? "bg-background/95 backdrop-blur-md shadow-md border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -50,14 +50,14 @@ export const Header = () => {
             className="flex items-center gap-3"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+            <div className="w-11 h-11 rounded-xl bg-gradient-accent flex items-center justify-center shadow-glow-pink">
               <span className="text-primary-foreground font-display font-bold text-xl">
                 K
               </span>
             </div>
             <span
-              className={`font-display font-semibold text-xl ${
-                isScrolled ? "text-foreground" : "text-background"
+              className={`font-display font-bold text-xl tracking-tight ${
+                isScrolled ? "text-foreground" : "text-primary-foreground"
               }`}
             >
               Kashish Events
@@ -70,8 +70,8 @@ export const Header = () => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`text-sm font-medium transition-colors hover:text-accent ${
-                  isScrolled ? "text-muted-foreground" : "text-background/80"
+                className={`text-sm font-semibold transition-colors hover:text-accent ${
+                  isScrolled ? "text-muted-foreground" : "text-primary-foreground/80"
                 }`}
               >
                 {item.label}
@@ -79,7 +79,7 @@ export const Header = () => {
             ))}
             <Button
               onClick={() => scrollToSection("#contact")}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-6 shadow-glow-pink"
             >
               Get in Touch
             </Button>
@@ -91,9 +91,9 @@ export const Header = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
-              <X className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-background"}`} />
+              <X className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-primary-foreground"}`} />
             ) : (
-              <Menu className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-background"}`} />
+              <Menu className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-primary-foreground"}`} />
             )}
           </button>
         </div>
@@ -113,14 +113,14 @@ export const Header = () => {
                 <button
                   key={item.label}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-left text-lg font-medium text-foreground hover:text-accent transition-colors"
+                  className="text-left text-lg font-semibold text-foreground hover:text-accent transition-colors"
                 >
                   {item.label}
                 </button>
               ))}
               <Button
                 onClick={() => scrollToSection("#contact")}
-                className="w-full mt-2 bg-accent hover:bg-accent/90 text-accent-foreground"
+                className="w-full mt-2 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
               >
                 Get in Touch
               </Button>
